@@ -3,7 +3,7 @@ require_once 'model/DB.php';
 
 class UserModel {
 
-    private $db;
+    public $db;
 
     public function __construct(){
 
@@ -18,5 +18,10 @@ class UserModel {
         //Execution de la requete preparer
         return $queryPrepare->execute(array($username, $email, $password));
     }
+    public function findUserEmailPwd($email, $password){
+        $query = $this->db->dbh->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+        $query->execute(array($email, $password));
+        return $query->fetch();
+   }
 
 }

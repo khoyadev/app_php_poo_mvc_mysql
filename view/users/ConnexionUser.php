@@ -1,11 +1,13 @@
 <?php ob_start(); ?>
 
             <div class="login">
-				<form>
+				<form method="post" action="index.php?action=listes">
 					<label for="chk" aria-hidden="true">Connexion</label>
 					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Connexion</button>
+					<input type="password" name="password" placeholder="Password" required="">
+					<input type="submit" class="button" value="Connexion" name="listes">
+
+					<button></button>
 				</form>
 			</div>
 

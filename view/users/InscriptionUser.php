@@ -1,4 +1,5 @@
-<?php ob_start(); ?>
+<?php ob_start();
+ ?>
 
             <div class="signup">
 				<!-- <form method="post" action="index.php?view=ConnexionUser"> -->
@@ -7,8 +8,7 @@
 					<input type="text" name="username" placeholder="Nom" required="">
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="password" placeholder="Password" required="">
-					<input type="submit" class="button" value="enregistrer" name="add">
-				<button>Inscription</button>
+					<input type="submit" class="button" value="Inscription" name="add">
 				</form>
 			</div>
 
