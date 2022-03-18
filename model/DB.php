@@ -3,7 +3,7 @@ class DB {
     private $host = 'localhost';
     private $user = 'root';
     private $pass = 'passer';
-    private $dbname = 'app_php_poo_mvc_mysql';
+    private $dbname = 'brief_mvc';
 
     //Will be the PDO object
     public $dbh;

@@ -18,9 +18,9 @@ class UserModel {
         //Execution de la requete preparer
         return $queryPrepare->execute(array($username, $email, $password));
     }
-    public function findUserEmailPwd($email, $password){
-        $query = $this->db->dbh->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
-        $query->execute(array($email, $password));
+    public function findUsernamePwd($username, $password){
+        $query = $this->db->dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+        $query->execute(array($username, $password));
         return $query->fetch();
    }
 
