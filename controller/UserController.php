@@ -12,7 +12,7 @@ public $usermodel;
       $view = isset($_GET['view']) ? $_GET['view'] : NULL;
         switch ($view) {
           case 'listes':
-            if ((!isset( $_POST['username']) && !isset( $_POST['password'])) && !isset($_POST['add'])) {
+            if ((!isset( $_POST['username']) && !isset( $_POST['password'])) && !isset($_POST['addentreprise'])) {
               $this->includepage($view);
             }else {
               $this->ProcessLogin();
@@ -32,43 +32,50 @@ public $usermodel;
       $action = isset($_GET['action']) ? $_GET['action'] : NULL;
       
         switch ($action) {
+          case 'modification':
+            var_dump($action);
+            if (isset($_POST['modifier'])) {
+              extract($_POST);
+              $cotisations_sociales = empty($_POST['cotisations_sociales']) ? 0 : 1;
+              $organigramme = empty($_POST['organigramme']) ? 0 : 1;
+              $contrat = empty($_POST['contrat']) ? 0 : 1;
+              
+              $this->entreprisemodel->modifier($nom_entreprise, $coordonnees, $ninea, $rccm, $date_creation, $page_web, $nombre_employe, $organigramme, $cotisations_sociales, $contrat, $id_repondant, $id_domaine, $id_dispositif, $id_regime, $id_quartier, $id_entreprise);
+              header("location:http://localhost/PHP/app_poo_mvc_mysql/index.php?view=listes");
+              
+            }           
+          break;
           case 'adduser':
             if (isset($_POST['add'])) {
               extract($_POST);
               $this->usermodel->inserrerUser($username, $email, $password);
             }
-            break;
-            case 'addentreprise':
+          break;
+          case 'addentreprise':
               if (isset($_POST['add'])) {
                 extract($_POST);
                 $cotisations_sociales = empty($_POST['cotisations_sociales']) ? 0 : 1;
                 $organigramme = empty($_POST['organigramme']) ? 0 : 1;
                 $contrat = empty($_POST['contrat']) ? 0 : 1;
+                var_dump($_POST['contrat']);
                 $this->entreprisemodel->inserrerEntreprise($nom_entreprise, $coordonnees, $ninea, $rccm, $date_creation, $page_web, $nombre_employe, $organigramme, $cotisations_sociales, $contrat, $id_repondant, $id_domaine, $id_dispositif, $id_regime, $id_quartier);
-                $this->RetournerListe();
+                header("location:http://localhost/PHP/app_poo_mvc_mysql/index.php?view=listes");
                 
               }           
-              break;
+          break;
           case 'supprimer':
-            var_dump($action);
             
             if (isset($_GET['id'])) {
               $id = $_GET['id'];
-              //$resultat = $this->usermodel->supprimer($id);
-              // if ($resultat) {
-                header("location:index.php");
-              // }
-              echo $action;
+              $resultat = $this->entreprisemodel->supprimer($id);
+              var_dump($action);
+              if ($resultat) {
+                header("location:http://localhost/PHP/app_poo_mvc_mysql/index.php?view=listes");
+              }
+            
             }
             break;
-              // case 'modification':
-              //   if (isset($_POST['modification'])) {
-              //     extract($_POST);
-              //     //$this->usermodel->modifier($username, $email, $password, $id);
-              //    // nouveau chose ajouter
-              //    header("location:index.php");
-              //   }           
-              //   break;
+
           default:
 
             break;
@@ -79,23 +86,29 @@ public $usermodel;
   
     function includepage($page = 'InscriptionUser')
     {
-     
+      $repondants = $this->entreprisemodel->listerRepondant();         
+      $domaines = $this->entreprisemodel->listerDomaine();
+      $dispositifs = $this->entreprisemodel->listerDispositif();
+      $regimes = $this->entreprisemodel->listerRegime();
+      $quartiers = $this->entreprisemodel->listerQuartier();
         if ($page == "listes") {
           $entreprises = $this->entreprisemodel->lister(); 
           require_once 'view/entreprise/'.$page.'.php';
-        } else{
-        if ($page == "ajout") {
-          $repondants = $this->entreprisemodel->listerRepondant();         
-          $domaines = $this->entreprisemodel->listerDomaine();
-          $dispositifs = $this->entreprisemodel->listerDispositif();
-          $regimes = $this->entreprisemodel->listerRegime();
-          $quartiers = $this->entreprisemodel->listerQuartier();
-          require_once 'view/entreprise/'.$page.'.php';
-        }else {
-      if ($page == "modification"  && isset($_GET['id'])) {
-            $user = $this->entreprisemodel->findUserId($_GET['id']);
+          } else{
+          if ($page == "ajout") {
+            
             require_once 'view/entreprise/'.$page.'.php';
-  
+          }else {
+        if ($page == "modification"  && isset($_GET['id'])) {
+          $entreprises = $this->entreprisemodel->findEntrepriseId($_GET['id']);
+          $repondantsID = $this->entreprisemodel->findIdRepondant($entreprises['id_repondant']);         
+          $domainesID = $this->entreprisemodel->findIdDomaine($entreprises['id_domaine']);
+          $dispositifsID = $this->entreprisemodel->findIdDispositif($entreprises['id_dispositif']);
+          $regimeID = $this->entreprisemodel->findIdRegime($entreprises['id_regime']);
+          $quartiersID = $this->entreprisemodel->findIdQuartier($entreprises['id_quartier']);
+            
+            require_once 'view/entreprise/'.$page.'.php';
+            
           }
           }
         }

@@ -41,6 +41,7 @@
                                         echo "<td>" . $entreprise['ninea'] . "</td>";
                                         echo "<td>" . $entreprise['page_web'] . "</td>";
                                         echo "<td>" . $entreprise['nombre_employe'] . "</td>";
+                                        echo "<td>" . $entreprise['id_regime'] . "</td>";
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $entreprise['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="index.php?view=modification&id='. $entreprise['id_entreprise'] .'" class="mr-3" title="Modification" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
