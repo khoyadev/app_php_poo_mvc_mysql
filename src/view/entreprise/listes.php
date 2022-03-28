@@ -1,4 +1,6 @@
-<?php require('view/template/header.php'); ?>
+<?php require('view/template/header.php'); 
+echo(isset($_POST['modifier']));
+?>
 
 
 <h1 id="index-text">Welcome, <?php if(isset($_SESSION['username'])){

@@ -1,5 +1,6 @@
 <?php require('view/template/header.php'); 
-var_dump($action);
+//var_dump($entreprises);
+echo(isset($_POST['modifier']));
 ?>
  
 
