@@ -1,7 +1,7 @@
 <?php
 session_start(); 
-require 'controller/UserController.php';
-$usercontroller = new UserController;
+require 'controller/Controller.php';
+$usercontroller = new Controller;
 $usercontroller->viewManager();
 // require 'controller/EntrepiseController.php';
 // $entrepisecontroller = new EntrepiseController;

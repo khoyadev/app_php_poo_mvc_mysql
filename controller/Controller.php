@@ -7,7 +7,7 @@ require_once 'model/RegimeModel.php';
 require_once 'model/RepondantModel.php';
 require_once 'model/DomaineModel.php';
 
-class UserController {
+class Controller {
  
 public $usermodel;
   public function __construct(){
